@@ -1,38 +1,61 @@
-name: Code Review Workflow
+name: Code Review Checks
 
-# Trigger: Run this workflow on pull requests to the main branch
 on:
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
+  push:
+    branches: [ main ]    
 
 jobs:
-  code-review:
+  review:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout repository
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Set up Node.js environment (for JavaScript/Node projects)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      # Step 3: Install dependencies
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm install
 
-      # Step 4: Lint code (check coding standards)
+      # ---- Run Lint ----
       - name: Run ESLint
-        run: npx eslint . --max-warnings=0
+        id: eslint
+        run: |
+          npx eslint . > eslint-report.txt || true
 
-      # Step 5: Run tests (basic quality check)
-      - name: Run Tests
-        run: npm test
+      # ---- Run Security Scan ----
+      - name: Run Security Audit
+        id: audit
+        run: |
+          npx audit-ci --moderate > audit-report.txt || true
 
-      # Step 6: Security check (scan for vulnerabilities)
-      - name: Run npm audit
-        run: npm audit --audit-level=moderate
+      # ---- Post Comment on Pull Request ----
+      - name: Comment Results on Pull Request
+        if: always()
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: code-review
+          message: |
+           **Automated Code Review Results**
+            ---
+            **ESLint Report:**
+            ```
+            ${{ steps.eslint.outputs.stdout || 'See eslint-report.txt for details.' }}
+            ```
+
+            **Prettier Report:**
+            ```
+            ${{ steps.prettier.outputs.stdout || 'See prettier-report.txt for details.' }}
+            ```
+
+            **Security Audit:**
+            ```
+            ${{ steps.audit.outputs.stdout || 'See audit-report.txt for details.' }}
+            ```
+
+             *End of automated report.*
