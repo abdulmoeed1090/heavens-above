@@ -59,7 +59,7 @@ function getTable(config) {
 					].forEach((ele) => {
 						temp[eventsIridium[ele[0]]] = tr.eq(ele[1]).find("td").eq(1).text();
 					});
-					temp[eventsIridium[13]] = "https://www.heavens-above.com/" + $("#ctl00_cph1_imgSkyChart").attr("src") //.replace("size=800", "size=1600");,
+					temp[eventsIridium[13]] = "https://www.heavens-above.com/" + $("#ctl00_cph1_imgSkyChart").attr("src"); //.replace("size=800", "size=1600");,
 					const id = utils.md5(Math.random().toString()); //temp[eventsIridium[6]];
 					temp[eventsIridium[14]] = id;
 					fs.appendFile(basedir + id + ".html", table.html(), (err) => {
@@ -82,7 +82,7 @@ function getTable(config) {
 				else next += `&${$(o).attr("name")}=${$(o).attr("value")}`;
 			});
 			next += "&ctl00$cph1$visible=radioVisible";
-			next = next.replace(/\+/g, "%2B").replace(/\//g, "%2F") //.replace(/\$/g, "%24");
+			next = next.replace(/\+/g, "%2B").replace(/\//g, "%2F"); //.replace(/\$/g, "%24");
 				if (counter++ < config.pages) {
 				getTable({
 					count: config.count,
