@@ -1,0 +1,21 @@
+name: Scheduled Tasks
+
+# Trigger: Runs on a schedule (daily at 2:00'o clock)
+on:
+  schedule:
+    - cron: '0 2 * * *'  # minute_hour_day_month_day-of-week
+
+jobs:
+  maintenance:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Step 2: Run a script or command
+      - name: Run Maintenance Script
+        run: |
+          echo "Running daily maintenance..."
+         
