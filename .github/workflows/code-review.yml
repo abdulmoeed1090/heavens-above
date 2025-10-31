@@ -1,0 +1,38 @@
+name: Code Review Workflow
+
+# Trigger: Run this workflow on pull requests to the main branch
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  code-review:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js environment (for JavaScript/Node projects)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Step 3: Install dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # Step 4: Lint code (check coding standards)
+      - name: Run ESLint
+        run: npx eslint . --max-warnings=0
+
+      # Step 5: Run tests (basic quality check)
+      - name: Run Tests
+        run: npm test
+
+      # Step 6: Security check (scan for vulnerabilities)
+      - name: Run npm audit
+        run: npm audit --audit-level=moderate
