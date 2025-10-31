@@ -1,0 +1,36 @@
+name: Deploy Documentation
+
+# Trigger workflow on push to main branch or changes in docs folder
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'  # Only trigger if files in docs folder change
+
+permissions:
+  contents: write  # Allow writing to gh-pages branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      # Step 3: Install MkDocs and Material theme
+      - name: Install MkDocs
+        run: |
+          pip install mkdocs mkdocs-material
+
+      # Step 4: Build and deploy documentation to GitHub Pagess
+      - name: Deploy to GitHub Pages
+        run: mkdocs gh-deploy --force
