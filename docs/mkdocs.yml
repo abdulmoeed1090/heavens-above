@@ -1,0 +1,37 @@
+site_name: GitHub Actions Automation Documentation
+site_description: Comprehensive documentation of GitHub Actions workflows for XYZ Corp's automation project.
+site_author: Abdul Moeed
+repo_name: stevenjoezhang/heavens-above
+repo_url: https://github.com/stevenjoezhang/heavens-above
+site_url: https://abdulmoeed.github.io/heavens-above/
+
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.sections
+    - navigation.expand
+    - toc.integrate
+    - content.code.annotate
+    - content.tabs.link
+  palette:
+    - scheme: default
+      primary: blue
+      accent: light blue
+  font:
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - footnotes
+  - meta
+  - toc:
+      permalink: true
+  - tables
+  - def_list
+  - attr_list
