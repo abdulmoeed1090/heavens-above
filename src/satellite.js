@@ -99,7 +99,7 @@ function getTable(config) {
 					}
                     const startTime = utils.getTimestamp(temp[property[3]][events[5]] ? temp[property[3]][events[5]][attribute[0]] : temp[property[3]][events[1]][attribute[0]]);
                     const endTime = utils.getTimestamp(temp[property[3]][events[6]] ? temp[property[3]][events[6]][attribute[0]] : temp[property[3]][events[3]][attribute[0]]);
-                    temp[property[5]] = "https://www.heavens-above.com/" + $("#ctl00_cph1_imgViewFinder").attr("src") //.replace("size=800", "size=1600");
+                    temp[property[5]] = "https://www.heavens-above.com/" + $("#ctl00_cph1_imgViewFinder").attr("src"); //.replace("size=800", "size=1600");
                     temp[property[6]] = data;
                     temp[property[7]] = endTime - startTime;
                     temp[property[8]] = 0;
@@ -125,7 +125,7 @@ function getTable(config) {
 				else next += `&${$(o).attr("name")}=${$(o).attr("value")}`;
 			});
 			next += "&ctl00$cph1$visible=radioVisible";
-			next = next.replace(/\+/g, "%2B").replace(/\//g, "%2F") //.replace(/\$/g, "%24");
+			next = next.replace(/\+/g, "%2B").replace(/\//g, "%2F"); //.replace(/\$/g, "%24");
 			if (counter++ < config.pages) {
 				getTable({
 					target: config.target,
