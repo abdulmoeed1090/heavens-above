@@ -35,6 +35,6 @@ jobs:
           -d '{
             "name": "heaven-above",
             "projectId": "${{ secrets.VERCEL_PROJECT_ID }}",
-            "orgId": "${{ secrets.VERCEL_ORG_ID }}",
+            "orgId": "${{ secrets.ORG_ID }}",
             "target": "production"
           }'
